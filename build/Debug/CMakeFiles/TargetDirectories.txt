@@ -1,0 +1,3 @@
+C:/Users/gaber/OneDrive/Documents/Coding/Mina-leo/Leo-Mina/build/Debug/CMakeFiles/Leo-Mina.dir
+C:/Users/gaber/OneDrive/Documents/Coding/Mina-leo/Leo-Mina/build/Debug/CMakeFiles/edit_cache.dir
+C:/Users/gaber/OneDrive/Documents/Coding/Mina-leo/Leo-Mina/build/Debug/CMakeFiles/rebuild_cache.dir

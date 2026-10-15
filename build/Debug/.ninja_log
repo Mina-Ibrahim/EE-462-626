@@ -1,0 +1,8 @@
+# ninja log v7
+116	293	8134392654319253	CMakeFiles/Leo-Mina.dir/Src/startup_stm32f446xx.S.obj	37fefec85c7c4e69
+10	207	8134431118600497	CMakeFiles/Leo-Mina.dir/Src/main.c.obj	4339bffcec6a336e
+82	473	8134392653982024	CMakeFiles/Leo-Mina.dir/Src/sysmem.c.obj	6a6a698f9f8888d6
+66	966	8134398741186024	CMakeFiles/Leo-Mina.dir/Src/syscall.c.obj	5371cdfbdbcc299a
+209	466	8134431120590032	Leo-Mina.elf	134a7b9bd911e509
+5	728	8137324640053103	CMakeFiles/Leo-Mina.dir/Src/main.c.obj	4339bffcec6a336e
+730	2166	8137324647319838	Leo-Mina.elf	134a7b9bd911e509

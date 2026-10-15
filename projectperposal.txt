@@ -1,0 +1,553 @@
+ 
+ 
+ 
+Project Proposal 
+
+Leo Miloradovich & Mina Gaber Wahba Ibrahim 
+
+EE 426/626 Microprocessor Applications 
+
+Anthony Turvey 
+
+October 2nd, 2026 
+
+ 
+
+Introduction 
+
+Communication between patients and healthcare providers is an important part of providing effective and timely care. In much healthcare environments, patients may need to communicate symptoms, medication information, or changes in their condition to a healthcare provider. Traditional communication methods can require a patient to wait for nurses or doctors to become available, while healthcare providers may have to manually collect and organize information. An embedded communication system could provide a simple way for patients to enter information and transmit it to a healthcare provider electronically. 
+
+This project proposes the development of a prototype patient-doctor communication system using an STM32 NUCLEO-F446RE as the primary microcontroller. The system will allow a patient to select and report on basic issues such as pain, breathing difficulties, medication status, or other predefined concerns. The STM32 will collect the patient’s selections, display information on a small OLED screen, organize the information into a structured message, and transmit the message to a second communication device. We can then use an ESP32 module that could be used to transfer the information to a compute representing the doctor’s interface. 
+
+The proposed system will focus primarily on communication rather than medical diagnosis. The device will not attempt to determine whether a patient has any particular diseases or conditions. Instead, it will provide a structured method for the patient to communicate information over to a doctor. Optional sensors may be included or added to demonstrate how measured data can also be incorporated into a communication packet. 
+
+This project is intended to demonstrate practical embedded systems concepts including GPIO, 
+I2C
+I
+2
+C
+ 
+, UART, ADC, state machines, wireless communication, data formatting, error detection, and system testing. The STM32 NUCLEO-F446RE is particularly appropriate for the project because it provides a wide range of peripherals and interfaces while also including an onboard ST-LINK debugger/programmer. 
+
+Problem Statement 
+
+Patients and healthcare providers need reliable ways to communicate information with each other. In a simplified clinical environment, a patient may need to communicate that they are experiencing pain, have a particular symptom, missed medication, or need to provide an update. A communication system that organizes this information before sending it could reduce ambiguity and demonstrate how embedded technology can support healthcare communication 
+
+The problem addressed by this project is therefore “How can an embedded system be designed to allow a patient to enter structured information about an issue and reliably communicate that information to a doctor while also allowing the doctor to send a response back to the patient?” 
+
+The proposed solution is going to be an STM32-based two-way communication system. The patient will be able to interact with the system using physical buttons and an OLED display. The STM32 will function as the main controller and will process the patient’s selections. An ESP32 will provide wireless connectivity between the patient's device and a computer-based doctor interface. 
+
+The system will also include a basic error handling. For example, when a message is transmitted, the receiving system can send an acknowledgement to confirm that the message was received. If the acknowledgement is not received within a specific period, the patient device can notify the user and attempt to retransmit the message. 
+
+Project Objectives 
+
+The primary objective is to develop a functional prototype that demonstrates reliable two-way communication between a patient device and a doctor interface. 
+
+The specific objectives are: 
+
+Use the STM32 NUCLEO-F446RE as the primary embedded controller. 
+
+Develop a menu-based user interface using physical buttons and an OLED display. 
+
+Allow a patient to select predefined health-related issues. 
+
+Allow the patient to provide additional information such as symptoms of location and severity. 
+
+Create a structured communication packet containing the patient’s information 
+
+Transmit the packed from the STM32 to and ESP32 using UART 
+
+Use the ESP32 to provide wireless communication with a computer 
+
+Create a simple doctor interface capable of displaying received patient information. 
+
+Allow the doctor's interface to send acknowledgement or response messages back to the patient.  
+
+Display the doctor's response on the patient’s OLED. 
+
+Implement basic error detection and message acknowledgement. 
+
+Optionally incorporate a temperature sensor or other simple sensor into the system 
+
+Test the system under normal and communication-failure conditions 
+
+This project will be considered successful if a user can enter a report on the patient's device, transmit that report to the doctor's interface, receive an acknowledgement or response, and display that response on the patient's device. 
+
+System Overview 
+
+The system will consist of five major sections 
+
+Patient input 
+
+STM32 processing 
+
+Wireless communication 
+
+Doctor interface 
+
+Return communication 
+
+The STM32 will be responsible for processing user input, controlling the display, collecting optional sensor data, creating communication packets, and managing the system’s overall state. 
+
+The F446RE is suitable for this task because it is based on an Arm Cortex-M4 processor operating at up to 180 MHz and would provide 512 KB of flash memory with up to 128 KB of SRAM. It also includes multiple communication interfaces, ACDs, timers, and other peripherals that can be used for the proposed system. 
+
+The patient will interact with the system through four physical buttons: 
+
+Up 
+
+Down 
+
+Select 
+
+Back 
+
+A small OLED display will show menus and system messages. 
+
+System Block Diagram 
+
+Patient Input 
+
+STM32 
+
+Wireless Bridge 
+
+Doctor Interface 
+
+Buttons 
+
+OLED 
+
+Optional Sensors 
+
+Menu/state machine 
+
+Data Processing 
+
+Protocol 
+
+Error Handling 
+
+UART 
+
+ESP32 
+
+WI-FI 
+
+Laptop 
+
+Display report 
+
+Send response 
+
+ 
+Hardware Components 
+
+Component 
+
+Qty. 
+
+Purpose 
+
+Estimated Cost 
+
+STM32 NUCLEO-F446RE 
+
+1-2 
+
+Main Microcontroller 
+
+Already Available 
+
+ESP32 
+
+1 
+
+Wireless Communication 
+
+$10 – $20 
+
+OLED SSD1306 
+
+1 
+
+Patient Display 
+
+$4 - $8 
+
+Push Buttons 
+
+4 
+
+User input 
+
+$1 - $3 
+
+Temperature senor 
+
+1 
+
+Optional measurement 
+
+$2 - $5 
+
+Buzzer 
+
+1 
+
+Notifications 
+
+$1 - $2 
+
+Resistors 
+
+several 
+
+Pull-ups/current limiting 
+
+$1 - $2 
+
+Breadboard 
+
+1-2 
+
+Prototyping 
+
+$5 - $10 
+
+Jumper wires 
+
+1 set 
+
+connections 
+
+$4 - $8 
+
+USB cables 
+
+1-2 
+
+Programming/Power 
+
+$0 - $8 
+
+Total Additional Costs 
+
+ 
+
+ 
+
+$30 - $66 
+
+Hardware Design 
+
+STM32 
+
+The NUCLEO-F446RE will serve as the central controller, which provides sufficient processing capabilities. 
+
+Device 
+
+STM32 Interface 
+
+OLED 
+
+I2C
+I
+2
+C
+ 
+ 
+
+Buttons 
+
+GPIO 
+
+ESP32 
+
+UART 
+
+Temperature Sensor 
+
+I2C
+I
+2
+C
+ 
+ or ADC 
+
+Buzzer 
+
+GPIO 
+
+Optional other sensors 
+
+ADC 
+
+ 
+
+OLED Display 
+
+A small SSD1306-based OLED will provide feedback to the patient. The display will show the main menu, symptom selection, severity, confirmation, transmission status, communication errors, and doctor responses. 
+
+Buttons  
+
+Four buttons will provide the primary user input; UP moves through a menu, DOWN moves through a menu, SELECT chooses an option, and BACK returns to the previous screen. 
+
+ESP32 
+
+The ESP32 will act as a communication bridge between the STM32 and the doctor’s computer. The STM32 will communicate with the ESP32 through UART, and the ESP32 will use Wi-Fi to communicate with the doctor's interface. 
+
+Sofware Design 
+
+Software will be developed using STM32CubeIDE, with STM32CubeMX used to configure microcontroller peripherals. The firmware will be divided into functional modules such as buttons, display, menu, sensors, UART, protocol, and system control. 
+
+Example: 
+
+Main.c 
+
+Buttons.c 
+
+Display.c 
+
+Menu.c 
+
+Sensors.c 
+
+Uart.c 
+
+Protocol.c 
+
+System.c 
+
+ 
+
+The program will continuously monitor user input, update the menu, process communication, and update the display. A state-machine architecture will be used for the user interface. Example states include MAIN_MENU, PAIN, LOCATION, SEVERITY, CONFIRM, SENT, and RESPONSE. Utilizing the state machine will make the software easier to test and expand than implementing the entire menu using nested conditional statements. 
+
+Communication Protocol 
+
+A custom communication protocol will be developed so that the STM32 and the ESP32 can exchange structured messages. The initial version will use human-readable ASCII messages because they are easy to debug with a serial terminal. 
+
+ID=27; 
+
+TYPE=SYMPTOM; 
+
+SYMPTOM=PAIN; 
+
+LOCATION=CHEST; 
+
+SEVERITY=2; 
+
+A more structured packet may eventually include a start marker, message ID, data length, payload, and checksum. The message ID will allow the system to associate an acknowledgement with the correct message. 
+
+Patient > STM32 > UART > ESP32 > Wi-Fi > Doctor Interface 
+
+Doctor Interface > Wi-Fi > ESP32 > UART > STM32 > Patient OLED 
+
+Error Handling 
+
+Reliability will be an important part of the project. When the STM32 sends a message, the doctor's interface will return an acknowledgement. If the acknowledgement is not received within a predetermined timeout, the STM32 can display a warning and allow the user to retry. A checksum or CRC may also be added to detect corrupted messages. 
+
+Doctor Interface 
+
+The first version of the doctor interface will be implemented on a laptop. This allows the project to focus on the STM32 and communication system rather than building a second complete embedded device. Possible responses include Message Received, Please Provide an Update, and Information Requested. The interface will not perform medical diagnosis; its purpose is to demonstrate two-way communication. 
+
+Optional Sensor Integration 
+
+A temperature sensor will be considered an optional feature. If implemented, the STM32 can periodically read the sensor and include the result in a communication packet. A pulse sensor may also be considered a stretch goal. Sensors are not required for the core project because adding too many sensors could increase complexity without significantly improving the communication objective. 
+
+Any sensor measurements in this prototype will be treated as demonstration data rather than clinical-grade measurements. The project is a communication prototype and is not intended to diagnose medical conditions or replace professional medical equipment. 
+
+Development Schedule 
+
+This project is planned for over eight weeks. The core communication system is targeted for completion by approximately week 6 leaving weeks 7 and 8 for testing and additional methods. 
+
+Task 
+
+W1 
+
+W2 
+
+W3 
+
+W4 
+
+W5 
+
+W6 
+
+W7 
+
+W8 
+
+Deliverable 
+
+STM32 setup 
+
+X 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+GPIO/debug Working 
+
+OLED/buttons 
+
+ 
+
+X 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Menu interface 
+
+State Machine 
+
+ 
+
+ 
+
+X 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Patient Report 
+
+UART + ESP32 
+
+ 
+
+ 
+
+ 
+
+X 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Serial link 
+
+Wi-Fi 
+
+ 
+
+ 
+
+ 
+
+ 
+
+X 
+
+ 
+
+ 
+
+ 
+
+Doctor Receives Data 
+
+Two-Way response 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+X 
+
+ 
+
+ 
+
+ACK/Response 
+
+Sensor/Reliability 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+X 
+
+ 
+
+Optional Sensor + error handling 
+
+Testing/presentation 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+X 
+
+Final demo 
+
+ 
+
+Conclusion 
+
+This project proposes an STM32 based patient-doctor communication and monitoring prototype using the STM32 NUCLEO-F446RE as the central microcontroller. The system will allow a patient to select and organize information about an issue using physical buttons and an OLED display. The STM32 will process the information to create a structured communication packet and send the packet through an ESP32 wireless module to a compute representing the doctor’s interface. 
+
+The doctor will be able to view the information received and send a basic response back to the patient. The system will include acknowledgement and error-handling features to demonstrate reliable communication. 
+
+The estimated additional hardware cost is approximately $30–$66, assuming the STM32 board, computer, and some laboratory equipment are already available. The project can be completed in approximately eight weeks, with the basic communication system targeted for completion by Week 6 and sensors, error handling, and additional features completed during the final two weeks. 
+
+The most important aspect of the project is maintaining an appropriate scope. The system will not attempt to diagnose patients or function as clinical medical equipment. Instead, it will demonstrate how an embedded system can collect structured user input, transmit information, receive a response, and provide feedback to the user. This provides a realistic application of STM32 programming and embedded communication while remaining achievable within the proposed development period. 
